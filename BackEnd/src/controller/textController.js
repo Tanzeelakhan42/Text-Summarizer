@@ -31,21 +31,26 @@ export const saveText = async (req, res) => {
 };
 
 const openai = new OpenAI({
-  apiKey: openApiKey, // Store API key in environment variable
+  apiKey: openApiKey,
 });
 
 async function summarizeText(text) {
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini", // Use GPT-4-Turbo or GPT-3.5-Turbo
+      model: "gpt-4o-mini",
       messages: [
         {
           role: "system",
-          content: "You are a helpful assistant that summarizes text.",
+          content:
+            "You are a professional news summarizer. Summarize the key points of the following article in a clear, concise, and neutral tone, retaining the main arguments and context.",
         },
-        { role: "user", content: `Summarize this: ${text}` },
+        {
+          role: "user",
+          content: `Summarize this article in 3-4 sentences:\n\n${text}`,
+        },
       ],
-      max_tokens: 100, // Adjust for shorter/longer summaries
+      max_tokens: 150,
+      temperature: 0.5,
     });
 
     console.log("Summary:", response.choices[0].message.content);
