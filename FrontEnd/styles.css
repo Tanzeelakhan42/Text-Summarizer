@@ -37,7 +37,7 @@ main {
   padding: 10px;
 }
 #text-box-2 {
-  max-height: 10%;
+  min-height: 10%;
 }
 footer {
   padding: 10px 20px;
